@@ -49,9 +49,20 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  --background: #f8fafc;
+  --foreground: #0f172a;
+
+  --primary: #083139;
+  --primary-foreground: #ffffff;
+
+  --secondary: #1fd465;
+  --secondary-foreground: #083139;
+
+  --accent: #2563eb;
+  --accent-foreground: #ffffff;
+
+  --radius: 1rem;
+   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
