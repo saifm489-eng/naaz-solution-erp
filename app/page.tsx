@@ -17,16 +17,3 @@ export default function Home() {
     </>
   );
 }
-import AnnouncementBar from "@/components/layout/AnnouncementBar";
-
-export default function Home() {
-  return (
-    <>
-      <AnnouncementBar />
-
-      <main className="min-h-screen">
-        {/* Next Component */}
-      </main>
-    </>
-  );
-}
