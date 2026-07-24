@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -17,16 +18,6 @@ export const metadata: Metadata = {
   title: "Naaz Solution | e-Mitra, CSC & AI Digital Services",
   description:
     "Naaz Solution provides Rajasthan e-Mitra, CSC, Website Design, AI Invoice, AI Resume, IRCTC, DSC, Loan & Insurance and Digital Services.",
-  keywords: [
-    "Naaz Solution",
-    "e-Mitra",
-    "CSC",
-    "Website Design",
-    "AI Invoice",
-    "AI Resume",
-    "IRCTC",
-    "Rajasthan",
-  ],
 };
 
 export default function RootLayout({
@@ -40,6 +31,12 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-background text-foreground font-[var(--font-inter)]">
         {children}
+
+        <Toaster
+          richColors
+          position="top-right"
+          closeButton
+        />
       </body>
     </html>
   );

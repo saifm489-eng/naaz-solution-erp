@@ -1,5 +1,5 @@
 "use client";
-
+import Reveal from "@/components/shared/Reveal";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -27,21 +27,23 @@ export default function Hero() {
           <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur">
             Rajasthan's Most Trusted Digital Service Center
           </span>
-
+          <Reveal>
           <h1 className="mt-6 text-5xl font-extrabold leading-tight lg:text-6xl">
             Digital Service
             <br />
             Platform
           </h1>
-
+          </Reveal>
+          <Reveal delay={0.2}>
           <p className="mt-6 max-w-xl text-lg text-white/80">
             e-Mitra, CSC, AI Tools, Website Design, Loan, Insurance,
             PAN Card, Aadhaar Update, Certificates and 500+ Digital Services
             under one trusted platform.
           </p>
-
+            </Reveal>
           {/* Buttons */}
           <div className="mt-8 flex flex-wrap gap-4">
+            <Reveal delay={0.4}>
             <Link
               href="/apply"
               className="flex items-center gap-2 rounded-xl bg-[#1FD465] px-6 py-3 font-semibold text-[#083139] transition hover:scale-105"
@@ -49,7 +51,8 @@ export default function Hero() {
               Apply Online
               <ArrowRight size={18} />
             </Link>
-
+             </Reveal>
+             <Reveal delay={0.6}>
             <a
               href="https://wa.me/918005707575"
               target="_blank"
@@ -59,6 +62,7 @@ export default function Hero() {
               <MessageCircle size={18} />
               WhatsApp
             </a>
+            </Reveal>
 
             <a
               href="tel:+918005707575"
@@ -68,7 +72,7 @@ export default function Hero() {
               Call Now
             </a>
           </div>
-
+           
           {/* Stats */}
           <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[
