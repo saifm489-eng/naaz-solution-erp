@@ -15,12 +15,10 @@ import Stats from "@/components/sections/Stats";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
-import FloatingWhatsApp from "@/components/shared/FloatingWhatsApp";
 import ScrollProgress from "@/components/shared/ScrollProgress";
+import { ChatWidget } from "@/components/ai-chat";
 
-
-export default function Home() {
-  const [loading, setLoading] = useState(true);
+export default function Home() {  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -37,7 +35,6 @@ export default function Home() {
       {!loading && (
         <>
           <ScrollProgress />
-
           <Header />
           <Hero />
           <SearchSection />
@@ -50,8 +47,8 @@ export default function Home() {
           <FAQ />
           <Contact />
           <Footer />
+         <ChatWidget />
 
-          <FloatingWhatsApp />
         </>
       )}
     </>

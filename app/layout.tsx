@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
-
+// Removed unused Script import
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -29,14 +29,15 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${poppins.variable} ${inter.variable}`}
     >
-      <body className="min-h-screen bg-background text-foreground font-[var(--font-inter)]">
-        {children}
+<body className="min-h-screen bg-background text-foreground font-(--font-inter)">      
+    {children}
 
         <Toaster
           richColors
           position="top-right"
           closeButton
         />
+ 
       </body>
     </html>
   );

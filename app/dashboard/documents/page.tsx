@@ -1,4 +1,5 @@
 import UploadDocumentDialog from "@/components/documents/UploadDocumentDialog";
+import DocumentsTable from "@/components/documents/DocumentsTable";
 
 export default function DocumentsPage() {
   return (
@@ -16,6 +17,9 @@ export default function DocumentsPage() {
 
         <UploadDocumentDialog />
       </div>
+
+      {/* Documents Table */}
+      <DocumentsTable />
     </div>
   );
 }

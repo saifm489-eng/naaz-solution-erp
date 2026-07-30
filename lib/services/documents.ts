@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase/client";
+import { Document } from "@/types/document";
 
-export async function getDocuments() {
+export async function getDocuments(): Promise<Document[]> {
   const { data, error } = await supabase
     .from("documents")
     .select("*")
@@ -8,15 +9,12 @@ export async function getDocuments() {
 
   if (error) throw error;
 
-  return data;
+  return data as Document[];
 }
 
-export async function createDocument(document: {
-  customer_id: string;
-  application_id: string;
-  file_name: string;
-  file_url: string;
-}) {
+export async function createDocument(
+  document: Omit<Document, "id" | "created_at">
+): Promise<Document> {
   const { data, error } = await supabase
     .from("documents")
     .insert(document)
@@ -25,10 +23,10 @@ export async function createDocument(document: {
 
   if (error) throw error;
 
-  return data;
+  return data as Document;
 }
 
-export async function deleteDocument(id: string) {
+export async function deleteDocument(id: string): Promise<void> {
   const { error } = await supabase
     .from("documents")
     .delete()
