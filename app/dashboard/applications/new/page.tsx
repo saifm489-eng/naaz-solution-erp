@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -10,8 +9,6 @@ import { applicationSchema } from "@/lib/validations/application";
 type ApplicationFormData = z.input<typeof applicationSchema>;
 
 export default function NewApplicationPage() {
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -21,8 +18,7 @@ export default function NewApplicationPage() {
     resolver: zodResolver(applicationSchema),
     mode: "onSubmit",
     defaultValues: {
-      customerName: "",
-      phone: "",
+      customer_id: "",
       serviceName: "",
       amount: 0,
       status: "Pending",
@@ -32,16 +28,11 @@ export default function NewApplicationPage() {
 
   const onSubmit = async (data: ApplicationFormData) => {
     try {
-      console.log("Form Data:", data);
+      console.log("Application:", data);
 
-      alert("Form Submitted Successfully!");
+      alert("Application Saved Successfully!");
 
       reset();
-
-      // अभी Database Save नहीं करेंगे
-      // Table Structure मिलने के बाद यहीं createApplication() आएगा
-
-      // router.push("/dashboard/applications");
     } catch (error) {
       console.error(error);
       alert("Something went wrong.");
@@ -53,42 +44,35 @@ export default function NewApplicationPage() {
       <h1 className="mb-6 text-3xl font-bold">Add New Application</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-
         <div>
-          <label className="mb-2 block font-medium">Customer Name</label>
-          <input
-            {...register("customerName")}
-            className="w-full rounded-lg border p-3"
-            placeholder="Enter customer name"
-          />
-          {errors.customerName && (
-            <p className="mt-1 text-sm text-red-500">
-              {errors.customerName.message}
-            </p>
-          )}
-        </div>
+          <label className="mb-2 block font-medium">Customer</label>
 
-        <div>
-          <label className="mb-2 block font-medium">Mobile Number</label>
-          <input
-            {...register("phone")}
+          <select
+            {...register("customer_id")}
             className="w-full rounded-lg border p-3"
-            placeholder="9876543210"
-          />
-          {errors.phone && (
+          >
+            <option value="">Select Customer</option>
+
+            {/* Temporary */}
+            <option value="customer-1">Demo Customer</option>
+          </select>
+
+          {errors.customer_id && (
             <p className="mt-1 text-sm text-red-500">
-              {errors.phone.message}
+              {errors.customer_id.message}
             </p>
           )}
         </div>
 
         <div>
           <label className="mb-2 block font-medium">Service Name</label>
+
           <input
             {...register("serviceName")}
             className="w-full rounded-lg border p-3"
             placeholder="PAN Card"
           />
+
           {errors.serviceName && (
             <p className="mt-1 text-sm text-red-500">
               {errors.serviceName.message}
@@ -98,12 +82,14 @@ export default function NewApplicationPage() {
 
         <div>
           <label className="mb-2 block font-medium">Amount</label>
+
           <input
             type="number"
             {...register("amount", { valueAsNumber: true })}
             className="w-full rounded-lg border p-3"
             placeholder="500"
           />
+
           {errors.amount && (
             <p className="mt-1 text-sm text-red-500">
               {errors.amount.message}
@@ -113,6 +99,7 @@ export default function NewApplicationPage() {
 
         <div>
           <label className="mb-2 block font-medium">Status</label>
+
           <select
             {...register("status")}
             className="w-full rounded-lg border p-3"
@@ -127,6 +114,7 @@ export default function NewApplicationPage() {
 
         <div>
           <label className="mb-2 block font-medium">Remarks</label>
+
           <textarea
             rows={4}
             {...register("remarks")}
@@ -142,7 +130,6 @@ export default function NewApplicationPage() {
         >
           {isSubmitting ? "Saving..." : "Save Application"}
         </button>
-
       </form>
     </div>
   );
