@@ -1,35 +1,21 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import {
-  Mail,
-  ArrowLeft,
-  ArrowRight,
-  CheckCircle2,
-  ShieldCheck,
-  Loader2,
-} from "lucide-react";
+import { Mail, ArrowLeft, RefreshCw, CheckCircle2 } from "lucide-react";
 
 import { supabase } from "@/lib/supabase/client";
 
-export default function ForgotPasswordPage() {
-  const router = useRouter();
-
+export default function VerifyEmailPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  async function handleForgotPassword(
-    e: FormEvent<HTMLFormElement>
-  ) {
-    e.preventDefault();
-
+  async function handleResendEmail() {
     setError("");
-    setSuccess("");
+    setMessage("");
 
     if (!email.trim()) {
       setError("Please enter your email address.");
@@ -39,25 +25,23 @@ export default function ForgotPasswordPage() {
     try {
       setLoading(true);
 
-      const { error: resetError } =
-        await supabase.auth.resetPasswordForEmail(
-          email.trim(),
-          {
-            redirectTo: `${window.location.origin}/reset-password`,
-          }
-        );
+      const { error: resendError } =
+        await supabase.auth.resend({
+          type: "signup",
+          email: email.trim(),
+        });
 
-      if (resetError) {
-        throw resetError;
+      if (resendError) {
+        throw resendError;
       }
 
-      setSuccess(
-        "Password reset instructions have been sent to your email address."
+      setMessage(
+        "Verification email has been sent again. Please check your inbox."
       );
     } catch (err: any) {
       setError(
         err?.message ||
-          "Unable to send reset email. Please try again."
+          "Unable to resend verification email. Please try again."
       );
     } finally {
       setLoading(false);
@@ -71,7 +55,9 @@ export default function ForgotPasswordPage() {
 
         <div className="grid w-full overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_25px_70px_rgba(8,49,57,0.12)] lg:grid-cols-2">
 
-          {/* LEFT PANEL */}
+          {/* =====================================================
+              LEFT BRAND PANEL
+          ====================================================== */}
 
           <div className="relative hidden overflow-hidden bg-[#083139] lg:flex">
 
@@ -119,26 +105,26 @@ export default function ForgotPasswordPage() {
 
                   <span className="inline-flex items-center gap-2 rounded-full border border-[#1FD465]/20 bg-[#1FD465]/10 px-4 py-2 text-sm font-medium text-[#1FD465]">
 
-                    <ShieldCheck size={17} />
+                    <CheckCircle2 size={17} />
 
-                    Account Recovery
+                    Account Security
 
                   </span>
 
                   <h2 className="mt-7 text-4xl font-bold leading-tight text-white xl:text-5xl">
 
-                    Get back into your
+                    Verify your
                     <span className="text-[#1FD465]">
-                      {" "}account.
+                      {" "}email address.
                     </span>
 
                   </h2>
 
                   <p className="mt-6 text-base leading-7 text-white/65">
 
-                    Forgot your password? No problem.
-                    Enter your registered email address and
-                    we will send you a secure password reset link.
+                    Email verification helps us keep your
+                    Naaz Solution account secure and ensures
+                    that you can recover your account when needed.
 
                   </p>
 
@@ -155,7 +141,7 @@ export default function ForgotPasswordPage() {
                       className="text-[#1FD465]"
                     />
 
-                    Secure password recovery
+                    Secure account verification
 
                   </div>
 
@@ -166,7 +152,7 @@ export default function ForgotPasswordPage() {
                       className="text-[#1FD465]"
                     />
 
-                    Protected account access
+                    Protected business data
 
                   </div>
 
@@ -177,7 +163,7 @@ export default function ForgotPasswordPage() {
                       className="text-[#1FD465]"
                     />
 
-                    Simple and secure process
+                    Easy account recovery
 
                   </div>
 
@@ -194,7 +180,9 @@ export default function ForgotPasswordPage() {
 
           </div>
 
-          {/* RIGHT PANEL */}
+          {/* =====================================================
+              VERIFY EMAIL CARD
+          ====================================================== */}
 
           <div className="px-6 py-12 sm:px-10 lg:px-12 xl:px-16">
 
@@ -228,7 +216,7 @@ export default function ForgotPasswordPage() {
 
             </div>
 
-            {/* Icon */}
+            {/* Email Icon */}
 
             <div className="flex justify-center">
 
@@ -248,52 +236,98 @@ export default function ForgotPasswordPage() {
             <div className="mt-7 text-center">
 
               <p className="text-sm font-semibold text-[#1a9f50]">
-                PASSWORD RECOVERY
+                EMAIL VERIFICATION
               </p>
 
               <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#083139]">
-                Forgot your password?
+                Check your inbox
               </h2>
 
               <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-slate-500">
 
-                Enter the email address associated with your
-                account. We will send you a secure link to
-                create a new password.
+                We have sent a verification link to your
+                email address. Please open the email and
+                click the verification button to activate
+                your account.
 
               </p>
 
             </div>
 
-            {/* SUCCESS */}
+            {/* Instructions */}
 
-            {success && (
-              <div className="mt-7 flex gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-4 text-sm leading-6 text-green-700">
+            <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+
+              <div className="space-y-4">
+
+                <div className="flex gap-3">
+
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#083139] text-xs font-bold text-white">
+                    1
+                  </div>
+
+                  <p className="text-sm leading-6 text-slate-600">
+                    Open your email inbox.
+                  </p>
+
+                </div>
+
+                <div className="flex gap-3">
+
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#083139] text-xs font-bold text-white">
+                    2
+                  </div>
+
+                  <p className="text-sm leading-6 text-slate-600">
+                    Find the email from Naaz Solution.
+                  </p>
+
+                </div>
+
+                <div className="flex gap-3">
+
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#083139] text-xs font-bold text-white">
+                    3
+                  </div>
+
+                  <p className="text-sm leading-6 text-slate-600">
+                    Click the verification link.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* Success Message */}
+
+            {message && (
+              <div className="mt-5 flex gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm leading-6 text-green-700">
 
                 <CheckCircle2
-                  size={20}
+                  size={19}
                   className="mt-0.5 shrink-0"
                 />
 
-                <span>{success}</span>
+                <span>
+                  {message}
+                </span>
 
               </div>
             )}
 
-            {/* ERROR */}
+            {/* Error Message */}
 
             {error && (
-              <div className="mt-7 rounded-xl border border-red-200 bg-red-50 px-4 py-4 text-sm leading-6 text-red-600">
+              <div className="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-600">
                 {error}
               </div>
             )}
 
-            {/* FORM */}
+            {/* Resend Section */}
 
-            <form
-              onSubmit={handleForgotPassword}
-              className="mt-8"
-            >
+            <div className="mt-8">
 
               <label
                 htmlFor="email"
@@ -317,44 +351,36 @@ export default function ForgotPasswordPage() {
                     setEmail(e.target.value)
                   }
                   placeholder="you@example.com"
-                  autoComplete="email"
-                  disabled={loading}
-                  className="h-13 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm text-[#083139] outline-none transition placeholder:text-slate-400 focus:border-[#1FD465] focus:bg-white focus:ring-4 focus:ring-[#1FD465]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="h-13 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm text-[#083139] outline-none transition placeholder:text-slate-400 focus:border-[#1FD465] focus:bg-white focus:ring-4 focus:ring-[#1FD465]/10"
                 />
 
               </div>
 
               <button
-                type="submit"
+                type="button"
+                onClick={handleResendEmail}
                 disabled={loading}
-                className="group mt-5 flex h-13 w-full items-center justify-center gap-2 rounded-xl bg-[#083139] px-5 text-sm font-semibold text-white shadow-lg shadow-[#083139]/10 transition hover:bg-[#0b424b] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
+                className="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#083139] bg-white text-sm font-semibold text-[#083139] transition hover:bg-[#083139] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
               >
 
-                {loading ? (
-                  <>
-                    <Loader2
-                      size={19}
-                      className="animate-spin"
-                    />
+                <RefreshCw
+                  size={17}
+                  className={
+                    loading
+                      ? "animate-spin"
+                      : ""
+                  }
+                />
 
-                    Sending Reset Link...
-                  </>
-                ) : (
-                  <>
-                    Send Reset Link
-
-                    <ArrowRight
-                      size={18}
-                      className="transition-transform group-hover:translate-x-1"
-                    />
-                  </>
-                )}
+                {loading
+                  ? "Sending..."
+                  : "Resend Verification Email"}
 
               </button>
 
-            </form>
+            </div>
 
-            {/* BACK TO LOGIN */}
+            {/* Back Login */}
 
             <div className="mt-8 text-center">
 
@@ -371,7 +397,7 @@ export default function ForgotPasswordPage() {
 
             </div>
 
-            {/* SECURITY */}
+            {/* Security */}
 
             <div className="mt-8 flex items-center justify-center gap-2 text-xs text-slate-400">
 
