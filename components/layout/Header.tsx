@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Search, Menu, User } from "lucide-react";
 
 export default function Header() {
@@ -10,8 +11,14 @@ export default function Header() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#083139] text-white font-bold text-xl">
-            N
+          <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl">
+            <Image
+              src="/images/dashboard-preview.png"
+              alt="Naaz Solution"
+              width={48}
+              height={48}
+              className="h-full w-full object-contain"
+            />
           </div>
 
           <div>
@@ -26,63 +33,90 @@ export default function Header() {
         </Link>
 
         {/* Desktop Menu */}
-        <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
-          <Link href="/" className="hover:text-[#1FD465]">
+        <nav className="hidden items-center gap-8 text-sm font-medium lg:flex">
+          <Link
+            href="/"
+            className="transition-colors hover:text-[#1FD465]"
+          >
             Home
           </Link>
 
-          <Link href="/services" className="hover:text-[#1FD465]">
+          <Link
+            href="/services"
+            className="transition-colors hover:text-[#1FD465]"
+          >
             Services
           </Link>
 
-          <Link href="/ai-tools" className="hover:text-[#1FD465]">
+          <Link
+            href="/ai-tools"
+            className="transition-colors hover:text-[#1FD465]"
+          >
             AI Tools
           </Link>
 
-          <Link href="/downloads" className="hover:text-[#1FD465]">
+          <Link
+            href="/downloads"
+            className="transition-colors hover:text-[#1FD465]"
+          >
             Downloads
           </Link>
 
-          <Link href="/blog" className="hover:text-[#1FD465]">
+          <Link
+            href="/blog"
+            className="transition-colors hover:text-[#1FD465]"
+          >
             Blog
           </Link>
 
-          <Link href="/contact" className="hover:text-[#1FD465]">
+          <Link
+            href="/contact"
+            className="transition-colors hover:text-[#1FD465]"
+          >
             Contact
           </Link>
         </nav>
 
         {/* Right Side */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden items-center gap-3 lg:flex">
 
-          <button className="rounded-xl border border-slate-200 p-2 hover:bg-slate-100">
+          {/* Search */}
+          <button
+            type="button"
+            aria-label="Search"
+            className="rounded-xl border border-slate-200 p-2 transition hover:bg-slate-100"
+          >
             <Search size={18} />
           </button>
 
+          {/* Login */}
           <Link
             href="/login"
-            className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium hover:bg-slate-100"
+            className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium transition hover:bg-slate-100"
           >
             <User size={16} />
             Login
           </Link>
 
+          {/* Apply Online */}
           <a
             href="https://wa.me/918005707575"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl bg-[#1FD465] px-5 py-2 text-sm font-semibold text-white shadow-lg hover:opacity-90"
+            className="rounded-xl bg-[#1FD465] px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:opacity-90"
           >
             Apply Online
           </a>
-
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="lg:hidden">
+        <button
+          type="button"
+          aria-label="Open menu"
+          className="lg:hidden"
+        >
           <Menu size={26} />
         </button>
-
       </div>
     </header>
   );

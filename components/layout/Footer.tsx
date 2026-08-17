@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   MapPin,
   Phone,
@@ -36,18 +37,41 @@ export default function Footer() {
   return (
     <footer className="bg-[#083139] text-white">
       <div className="mx-auto max-w-7xl px-4 py-16">
+
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+
           {/* Company */}
           <div>
-            <h2 className="text-3xl font-bold">Naaz Solution</h2>
+
+            {/* Logo + Company Name */}
+            <div className="flex items-center gap-3">
+
+              <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl bg-white">
+                <Image
+                  src="/images/dashboard-preview.png"
+                  alt="Naaz Solution"
+                  width={56}
+                  height={56}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+
+              <h2 className="text-2xl font-bold">
+                Naaz Solution
+              </h2>
+
+            </div>
 
             <p className="mt-4 leading-7 text-white/70">
               Your Trusted e-Mitra, CSC & AI Digital Service Partner.
             </p>
 
+            {/* Social Media */}
             <div className="mt-6 flex gap-3">
+
               <a
                 href="#"
+                aria-label="Facebook"
                 className="rounded-xl bg-white/10 p-3 transition hover:bg-[#1FD465] hover:text-[#083139]"
               >
                 <FaFacebookF size={18} />
@@ -55,6 +79,7 @@ export default function Footer() {
 
               <a
                 href="#"
+                aria-label="Instagram"
                 className="rounded-xl bg-white/10 p-3 transition hover:bg-[#1FD465] hover:text-[#083139]"
               >
                 <FaInstagram size={18} />
@@ -62,20 +87,24 @@ export default function Footer() {
 
               <a
                 href="#"
+                aria-label="YouTube"
                 className="rounded-xl bg-white/10 p-3 transition hover:bg-[#1FD465] hover:text-[#083139]"
               >
                 <FaYoutube size={18} />
               </a>
+
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
+
             <h3 className="mb-5 text-xl font-semibold">
               Quick Links
             </h3>
 
             <ul className="space-y-3">
+
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -86,16 +115,19 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+
             </ul>
           </div>
 
           {/* Services */}
           <div>
+
             <h3 className="mb-5 text-xl font-semibold">
               Popular Services
             </h3>
 
             <ul className="space-y-3">
+
               {services.map((service) => (
                 <li
                   key={service}
@@ -104,20 +136,25 @@ export default function Footer() {
                   {service}
                 </li>
               ))}
+
             </ul>
           </div>
 
           {/* Contact */}
           <div>
+
             <h3 className="mb-5 text-xl font-semibold">
               Contact Info
             </h3>
 
             <div className="space-y-4">
+
+              {/* Address */}
               <div className="flex gap-3">
+
                 <MapPin
                   size={18}
-                  className="mt-1 text-[#1FD465]"
+                  className="mt-1 shrink-0 text-[#1FD465]"
                 />
 
                 <p className="text-white/70">
@@ -129,12 +166,15 @@ export default function Footer() {
                   <br />
                   Rajasthan – 322230
                 </p>
+
               </div>
 
+              {/* Phone */}
               <div className="flex gap-3">
+
                 <Phone
                   size={18}
-                  className="text-[#1FD465]"
+                  className="shrink-0 text-[#1FD465]"
                 />
 
                 <a
@@ -143,26 +183,32 @@ export default function Footer() {
                 >
                   +91 8005707575
                 </a>
+
               </div>
 
+              {/* Email */}
               <div className="flex gap-3">
+
                 <Mail
                   size={18}
-                  className="text-[#1FD465]"
+                  className="shrink-0 text-[#1FD465]"
                 />
 
                 <a
                   href="mailto:helpdesk@naazsolution.hindaun.co.in"
-                  className="text-white/70 transition hover:text-[#1FD465]"
+                  className="break-all text-white/70 transition hover:text-[#1FD465]"
                 >
-                  helpdesk@naazsolution.hindaun.co.in
+                  support@naazsolution.hindaun.co.in
                 </a>
+
               </div>
 
+              {/* Website */}
               <div className="flex gap-3">
+
                 <Globe
                   size={18}
-                  className="text-[#1FD465]"
+                  className="shrink-0 text-[#1FD465]"
                 />
 
                 <a
@@ -173,19 +219,24 @@ export default function Footer() {
                 >
                   naazsolution.hindaun.co.in
                 </a>
+
               </div>
+
             </div>
           </div>
         </div>
 
         {/* Bottom */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
+
           <p className="text-sm text-white/60">
             © {new Date().getFullYear()} Naaz Solution. All Rights Reserved.
           </p>
 
+          {/* Back To Top */}
           <button
             type="button"
+            aria-label="Back to top"
             onClick={() =>
               window.scrollTo({
                 top: 0,
@@ -196,6 +247,7 @@ export default function Footer() {
           >
             <ArrowUp size={18} />
           </button>
+
         </div>
       </div>
     </footer>
